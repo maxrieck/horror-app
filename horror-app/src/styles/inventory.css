@@ -1,0 +1,13 @@
+/* src/styles/inventory.css */
+.inventory-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ddd;
+  padding: 1rem;
+  border-top: 2px solid #aaa;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
