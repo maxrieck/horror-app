@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { InventoryProvider, useInventory } from './context/InventoryContext';
@@ -17,7 +17,7 @@ function App() {
 }
 
 function Main() {
-  const { state, dispatch } = useInventory();
+  const { dispatch } = useInventory();
   const [activeId, setActiveId] = useState(null);
   const [activeFrom, setActiveFrom] = useState(null);
 

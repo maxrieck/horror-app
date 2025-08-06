@@ -1,7 +1,15 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
-// Initial state with some example items
+
+// Initial state with item objects and containers storing IDs
 const initialState = {
+  items: {
+    item1: { id: 'item1', name: 'Item 1', description: 'First item' },
+    item2: { id: 'item2', name: 'Item 2', description: 'Second item' },
+    item3: { id: 'item3', name: 'Item 3', description: 'Third item' },
+    item4: { id: 'item4', name: 'Item 4', description: 'Fourth item' },
+    item5: { id: 'item5', name: 'Item 5', description: 'Fifth item' },
+  },
   inventory: ['item1', 'item2', 'item3', 'item4', 'item5'],
   containers: {
     page1: { containerA: [], containerB: [] },
@@ -19,7 +27,14 @@ function inventoryReducer(state, action) {
     case 'MOVE_ITEM': {
       const { from, to, itemId } = action.payload;
       const newInventory = [...state.inventory];
-      const newContainers = JSON.parse(JSON.stringify(state.containers));
+      // Shallow copy containers and their arrays
+      const newContainers = { ...state.containers };
+      Object.keys(newContainers).forEach(page => {
+        newContainers[page] = { ...newContainers[page] };
+        Object.keys(newContainers[page]).forEach(container => {
+          newContainers[page][container] = [...newContainers[page][container]];
+        });
+      });
 
       // Remove from source
       if (from === 'inventory') {
@@ -41,7 +56,7 @@ function inventoryReducer(state, action) {
           newContainers[page][container].push(itemId);
       }
 
-      return { inventory: newInventory, containers: newContainers };
+      return { ...state, inventory: newInventory, containers: newContainers };
     }
     default:
       return state;
@@ -57,6 +72,7 @@ export function InventoryProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useInventory() {
   const context = useContext(InventoryContext);
   if (!context) throw new Error('useInventory must be used within InventoryProvider');

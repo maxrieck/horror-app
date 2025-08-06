@@ -1,5 +1,5 @@
-// src/context/InventoryProvider.jsx
-import React, { createContext, useContext, useReducer } from 'react';
+
+import { createContext, useReducer } from 'react';
 import { inventoryReducer, initialState } from './InventoryReducer';
 
 const InventoryContext = createContext();
@@ -15,4 +15,3 @@ export const InventoryProvider = ({ children }) => {
 
 
 
-export const useInventory = () => useContext(InventoryContext);

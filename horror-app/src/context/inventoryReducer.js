@@ -1,4 +1,3 @@
-// src/context/inventoryReducer.js
 
 export const initialState = {
   inventory: ['item1', 'item2', 'item3'],

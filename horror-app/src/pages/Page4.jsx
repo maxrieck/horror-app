@@ -1,4 +1,4 @@
-// pages/Page1.jsx
+
 import PageContainer from '../components/PageContainer';
 const Page4 = () => (
   <>
@@ -8,4 +8,4 @@ const Page4 = () => (
 );
 export default Page4;
 
-// Repeat similarly for Page2 - Page5
+
