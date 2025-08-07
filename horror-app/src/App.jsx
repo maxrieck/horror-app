@@ -37,13 +37,22 @@ function Main() {
     const toId = over.id;
 
     let to;
-
     if (toId === 'inventory') {
       to = 'inventory';
     } else {
-      // target container id format: containerId:pageId
       const [containerId, pageId] = toId.split(':');
       to = { page: pageId, container: containerId };
+    }
+
+    // Prevents item from moving if only clicked and not moved
+    if (
+      (from === 'inventory' && to === 'inventory') ||
+      (typeof from === 'object' &&
+        typeof to === 'object' &&
+        from.page === to.page &&
+        from.container === to.container)
+    ) {
+      return;
     }
 
     dispatch({
