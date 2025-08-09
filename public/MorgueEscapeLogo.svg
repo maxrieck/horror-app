@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172 172" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="185.273px" height="185.273px">
+  <defs>
+    <path id="path-0" d="M 69.803 310.319 C 115.431 327.095 146.517 340.536 179.818 345.599 C 222.512 352.091 264.136 350.047 305.387 361.153 L 320.561 372.914 C 324.9 376.818 328.475 379.662 331.563 384.294" style="fill: none;"/>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="92.636" cy="78.571" r="83.46" id="gradient-0" spreadMethod="pad" gradientTransform="matrix(0.057094, -0.098301, 0.82503, 0.479179, 22.523681, 50.027609)">
+      <stop offset="0" style="stop-color: rgb(50, 50, 50)"/>
+      <stop offset="1" style="stop-color: rgb(8, 0, 0);"/>
+    </radialGradient>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, -6.552658, 7.587269)">
+    <ellipse style="stroke: rgb(0, 0, 0); fill: url(&quot;#gradient-0&quot;); paint-order: fill;" cx="92.636" cy="78.571" rx="83.46" ry="83.46"/>
+    <text style="fill: rgb(171, 33, 33); font-family: Chiller; font-size: 150px; white-space: pre; transform-box: fill-box; transform-origin: 101.576px 104.178px;" transform="matrix(0.959156, -0.000001, 0, 0.95677, -71.734252, -204.683743)"><textPath href="#path-0"><tspan>M</tspan><tspan style="font-style: italic;">E</tspan></textPath></text>
+  </g>
+</svg>
