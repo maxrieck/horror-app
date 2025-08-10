@@ -7,15 +7,19 @@
     <title>Morgue Escape</title>
   </head>
   <body>
-    <script type="javascript">
+    <script type="text/javascript">
       // Prevents the browser from showing a warning about the app being served over HTTP
-      if (window.location.protocol !== 'https:') {
-        window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      if (window.location.protocol === 'http:') {
+        window.location.replace('https://' + window.location.host + window.location.pathname + window.location.search + window.location.hash);
       }
       // lock into landscape mode (chrome will specifically only turn if the device supports it)
-      window.screen.orientation.lock('landscape').catch((error) => {
-        console.error('Orientation lock failed:', error);
-      });
+      if (window.screen.orientation && window.screen.orientation.lock) {
+        window.screen.orientation.lock('landscape').catch((error) => {
+          console.error('Orientation lock failed:', error);
+        });
+      } else {
+        console.warn('Screen Orientation API not available or lock method unsupported.');
+      }
     </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
