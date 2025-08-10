@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import ContainerModal from '../components/ContainerModal';
-const CONTAINERS = ['container1', 'container2', 'container3', 'container4'];
 
-const Page1 = () => {
+const CONTAINERS = ['container8', 'container9'];
+
+const Page6 = () => {
   const [openModal, setOpenModal] = useState(null);
   return (
     <>
-      <h2>Page 1</h2>
+      <h2>Page 6</h2>
       <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
         {CONTAINERS.map((container) => (
           <button key={container} onClick={() => setOpenModal(container)}>
@@ -17,7 +18,7 @@ const Page1 = () => {
       {CONTAINERS.map((container) => (
         <ContainerModal
           key={container}
-          page="page1"
+          page="page6"
           container={container}
           open={openModal === container}
           onClose={() => setOpenModal(null)}
@@ -26,6 +27,5 @@ const Page1 = () => {
     </>
   );
 };
-export default Page1;
-
+export default Page6;
 

@@ -4,19 +4,21 @@ import { createContext, useContext, useReducer } from 'react';
 // Initial state with item objects and containers storing IDs
 const initialState = {
   items: {
-    item1: { id: 'item1', name: 'Item 1', description: 'First item' },
-    item2: { id: 'item2', name: 'Item 2', description: 'Second item' },
-    item3: { id: 'item3', name: 'Item 3', description: 'Third item' },
-    item4: { id: 'item4', name: 'Item 4', description: 'Fourth item' },
-    item5: { id: 'item5', name: 'Item 5', description: 'Fifth item' },
+    test2: { id: 'test2', name: 'Test 2', description: 'Second test item' },
+    test3: { id: 'test3', name: 'Test 3', description: 'Third test item' },
+    test4: { id: 'test4', name: 'Test 4', description: 'Fourth test item' },
+    key7: { id: 'key7', name: 'Key 7', description: 'Special key for container 7' },
+    key9: { id: 'key9', name: 'Key 9', description: 'Special key for container 9' },
   },
-  inventory: ['item1', 'item2', 'item3', 'item4', 'item5'],
+  inventory: ['test2'],
   containers: {
-    page1: { containerA: [], containerB: [] },
-    page2: { containerA: [], containerB: [] },
-    page3: { containerA: [], containerB: [] },
-    page4: { containerA: [], containerB: [] },
-    page5: { containerA: [], containerB: [] },
+    page1: { container1: [], container2: [], container3: [], container4: [] },
+    page2: { container5: [], container6: [] },
+    page3: { container7: [], container8: [] },
+    page4: { container9: [] },
+    page5: {},
+    page6: { container8: [], container9: [] },
+    page7: { container10: [] },
   },
 };
 
@@ -24,10 +26,16 @@ const InventoryContext = createContext();
 
 function inventoryReducer(state, action) {
   switch (action.type) {
+    case 'ADD_ITEM': {
+      const { itemId } = action.payload;
+      if (!state.inventory.includes(itemId)) {
+        return { ...state, inventory: [...state.inventory, itemId] };
+      }
+      return state;
+    }
     case 'MOVE_ITEM': {
       const { from, to, itemId } = action.payload;
       const newInventory = [...state.inventory];
-      // Shallow copy containers and their arrays
       const newContainers = { ...state.containers };
       Object.keys(newContainers).forEach(page => {
         newContainers[page] = { ...newContainers[page] };
@@ -47,10 +55,25 @@ function inventoryReducer(state, action) {
         );
       }
 
+      // logic for test2 and test3
+      if (itemId === 'test2' && to && typeof to === 'object' && to.container === 'container2') {
+        if (!newInventory.includes('test3')) newInventory.push('test3');
+        return { ...state, inventory: newInventory, containers: newContainers };
+      }
+      if (itemId === 'test3' && to && typeof to === 'object' && to.container === 'container3') {
+        if (!newInventory.includes('test4')) newInventory.push('test4');
+        return { ...state, inventory: newInventory, containers: newContainers };
+      }
+      // logic for key7
+      if (itemId === 'key7' && to && typeof to === 'object' && to.container === 'container7') {
+        if (!newInventory.includes('key9')) newInventory.push('key9');
+        return { ...state, inventory: newInventory, containers: newContainers };
+      }
+
       // Add to destination
       if (to === 'inventory') {
         if (!newInventory.includes(itemId)) newInventory.push(itemId);
-      } else {
+      } else if (to && typeof to === 'object') {
         const { page, container } = to;
         if (!newContainers[page][container].includes(itemId))
           newContainers[page][container].push(itemId);

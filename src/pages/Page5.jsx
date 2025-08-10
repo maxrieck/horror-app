@@ -1,9 +1,9 @@
+import React from 'react';
 
-import PageContainer from '../components/PageContainer';
 const Page5 = () => (
   <>
     <h2>Page 5</h2>
-    <PageContainer page="page1" />
+    {/* No containers for this page */}
   </>
 );
 export default Page5;

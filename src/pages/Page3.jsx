@@ -1,11 +1,32 @@
+import React, { useState } from 'react';
+import ContainerModal from '../components/ContainerModal';
 
-import PageContainer from '../components/PageContainer';
-const Page3 = () => (
-  <>
-    <h2>Page 3</h2>
-    <PageContainer page="page1" />
-  </>
-);
+const CONTAINERS = ['container7', 'container8'];
+
+const Page3 = () => {
+  const [openModal, setOpenModal] = useState(null);
+  return (
+    <>
+      <h2>Page 3</h2>
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+        {CONTAINERS.map((container) => (
+          <button key={container} onClick={() => setOpenModal(container)}>
+            Open {container}
+          </button>
+        ))}
+      </div>
+      {CONTAINERS.map((container) => (
+        <ContainerModal
+          key={container}
+          page="page3"
+          container={container}
+          open={openModal === container}
+          onClose={() => setOpenModal(null)}
+        />
+      ))}
+    </>
+  );
+};
 export default Page3;
 
 

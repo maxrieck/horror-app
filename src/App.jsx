@@ -3,7 +3,13 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { InventoryProvider, useInventory } from './context/InventoryContext';
 import Inventory from './components/Inventory';
-import PageContainer from './components/PageContainer';
+import Page1 from './pages/Page1';
+import Page2 from './pages/Page2';
+import Page3 from './pages/Page3';
+import Page4 from './pages/Page4';
+import Page5 from './pages/Page5';
+import Page6 from './pages/Page6';
+import Page7 from './pages/Page7';
 import DraggableItem from './components/DraggableItem';
 
 function App() {
@@ -73,7 +79,7 @@ function Main() {
           gap: '1rem',
         }}
       >
-        {[1, 2, 3, 4, 5].map((num) => (
+        {[1, 2, 3, 4, 5, 6, 7].map((num) => (
           <Link key={num} to={`/page${num}`}>
             Page {num}
           </Link>
@@ -82,13 +88,13 @@ function Main() {
 
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <Routes>
-          {[1, 2, 3, 4, 5].map((num) => (
-            <Route
-              key={num}
-              path={`/page${num}`}
-              element={<PageContainer page={`page${num}`} />}
-            />
-          ))}
+          <Route path="/page1" element={<Page1 />} />
+          <Route path="/page2" element={<Page2 />} />
+          <Route path="/page3" element={<Page3 />} />
+          <Route path="/page4" element={<Page4 />} />
+          <Route path="/page5" element={<Page5 />} />
+          <Route path="/page6" element={<Page6 />} />
+          <Route path="/page7" element={<Page7 />} />
           <Route path="*" element={<div>Select a page above</div>} />
         </Routes>
 
@@ -96,7 +102,7 @@ function Main() {
         <Inventory />
 
         {/* Drag Overlay to keep dragged item visible */}
-        <DragOverlay>
+        <DragOverlay style={{ zIndex: 9999 }}>
           {activeId ? <DraggableItem id={activeId} from={activeFrom} /> : null}
         </DragOverlay>
       </DndContext>

@@ -2,14 +2,32 @@ import { useDroppable } from '@dnd-kit/core';
 import DraggableItem from './DraggableItem';
 import { useInventory } from '../context/InventoryContext';
 
-const CONTAINERS = ['containerA', 'containerB'];
+const PAGE_CONTAINERS = {
+  page1: ['container1', 'container2'],
+  page2: ['container3', 'container4'],
+  page3: ['container5', 'container6'],
+  page4: ['container7', 'container8'],
+  page5: ['container9', 'container10'],
+};
 
-export default function PageContainer({ page }) {
+export default function PageContainer({ page, container }) {
   const { state } = useInventory();
-
+  
+  if (container) {
+    return (
+      <DropZone
+        id={`${container}:${page}`}
+        items={state.containers[page][container]}
+        page={page}
+        container={container}
+      />
+    );
+  }
+  
+  const containers = PAGE_CONTAINERS[page] || [];
   return (
     <div style={{ padding: '1rem', display: 'flex', gap: '2rem' }}>
-      {CONTAINERS.map((containerId) => (
+      {containers.map((containerId) => (
         <DropZone
           key={containerId}
           id={`${containerId}:${page}`}
