@@ -51,15 +51,8 @@ function Main() {
     }
 
     // Prevents item from moving if only clicked and not moved
-    if (
-      (from === 'inventory' && to === 'inventory') ||
-      (typeof from === 'object' &&
-        typeof to === 'object' &&
-        from.page === to.page &&
-        from.container === to.container)
-    ) {
-      return;
-    }
+    // This will work so long as both to and from maintain {page: pID, container: cID} structure
+    if (JSON.stringify(from) === JSON.stringify(to)) return;
 
     dispatch({
       type: 'MOVE_ITEM',
@@ -95,7 +88,7 @@ function Main() {
           <Route path="/page5" element={<Page5 />} />
           <Route path="/page6" element={<Page6 />} />
           <Route path="/page7" element={<Page7 />} />
-          <Route path="*" element={<div>Select a page above</div>} />
+          <Route path="*" element={<div>Select a page above **INSERT SPLASH PAGE / LOGIN</div>} />
         </Routes>
 
         {/* Persistent Inventory at bottom */}

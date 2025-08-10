@@ -4,9 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="MorgueEscapeLogo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Morgue Escape</title>
   </head>
   <body>
+    <script type="javascript">
+      // Prevents the browser from showing a warning about the app being served over HTTP
+      if (window.location.protocol !== 'https:') {
+        window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
+      // lock into landscape mode (chrome will specifically only turn if the device supports it)
+      window.screen.orientation.lock('landscape').catch((error) => {
+        console.error('Orientation lock failed:', error);
+      });
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

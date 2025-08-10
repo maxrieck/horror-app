@@ -51,7 +51,7 @@ function inventoryReducer(state, action) {
       } else {
         const { page, container } = from;
         newContainers[page][container] = newContainers[page][container].filter(
-          (id) => id !== itemId
+          id => id !== itemId
         );
       }
 
