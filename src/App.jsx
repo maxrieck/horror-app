@@ -69,7 +69,7 @@ function Main() {
 
   return (
     <>
-      {/* Simple navigation */}
+      {/* Simple navigation for testing purposes. Will remove with final version*/}
       <nav
         style={{
           padding: '1rem',

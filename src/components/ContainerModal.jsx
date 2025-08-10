@@ -6,9 +6,9 @@ import { useDroppable } from '@dnd-kit/core';
 import PageContainer from './PageContainer';
 
 export default function ContainerModal({ page, container, open, onClose }) {
-  const { state, dispatch } = useInventory();
-  const { setNodeRef, isOver } = useDroppable({ id: `${container}:${page}` });
-  const items = state.containers[page][container] || [];
+  const {  dispatch } = useInventory();
+  const { setNodeRef } = useDroppable({ id: `${container}:${page}` });
+  
 
   
   const showKey7Button = page === 'page2' && container === 'container5';
@@ -27,12 +27,14 @@ export default function ContainerModal({ page, container, open, onClose }) {
 
   return (
     <Modal onClose={onClose}>
-      {content}
-      {showKey7Button && (
-        <button style={{ marginTop: '1rem' }} onClick={handleAddKey7}>
-          Add key7 to inventory
-        </button>
-      )}
+      <div ref={setNodeRef}>
+        {content}
+        {showKey7Button && (
+          <button style={{ marginTop: '1rem' }} onClick={handleAddKey7}>
+            Add key7 to inventory
+          </button>
+        )}
+      </div>
     </Modal>
   );
 }
