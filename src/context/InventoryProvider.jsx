@@ -1,6 +1,6 @@
 
 import { createContext, useReducer } from 'react';
-import { inventoryReducer, initialState } from './InventoryReducer';
+import { inventoryReducer, initialState } from './inventoryReducer';
 
 const InventoryContext = createContext();
 
