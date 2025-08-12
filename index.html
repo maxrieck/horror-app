@@ -8,11 +8,72 @@
   </head>
   <body>
     <script type="text/javascript">
-      // Prevents the browser from showing a warning about the app being served over HTTP
-      if (window.location.protocol === 'http:') {
-        window.location.replace('https://' + window.location.host + window.location.pathname + window.location.search + window.location.hash);
-      }
       // lock into landscape mode (chrome will specifically only turn if the device supports it)
+      
+      // --- Create iOS overlay element ---
+      const rotateOverlay = document.createElement('div');
+      rotateOverlay.id = 'rotate-overlay';
+      Object.assign(rotateOverlay.style, {
+        display: 'none',
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        background: '#000',
+        color: '#fff',
+        fontSize: '2rem',
+        zIndex: '9999',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '20px'
+      });
+      rotateOverlay.textContent = 'Please rotate your device to landscape';
+      rotateOverlay.style.display = 'flex';
+      document.body.appendChild(rotateOverlay);
+      rotateOverlay.style.display = 'none';
+
+      // --- Detect iOS ---
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      // --- iOS fallback: show overlay if portrait ---
+      function handleIOSOrientation() {
+        if (window.innerHeight > window.innerWidth) {
+          rotateOverlay.style.display = 'flex';
+        } else {
+          rotateOverlay.style.display = 'none';
+        }
+      }
+
+      // --- Android & supported browsers: try to lock orientation ---
+      async function lockLandscape() {
+        try {
+          if (document.documentElement.requestFullscreen) {
+            await document.documentElement.requestFullscreen();
+          }
+          if (screen.orientation && screen.orientation.lock) {
+            await screen.orientation.lock('landscape');
+          } else {
+            console.warn('Screen Orientation API not available or lock unsupported.');
+          }
+        } catch (error) {
+          console.error('Orientation lock failed:', error);
+        }
+      }
+
+      // --- Init ---
+      if (isIOS) {
+        window.addEventListener('resize', handleIOSOrientation);
+        window.addEventListener('orientationchange', handleIOSOrientation);
+        handleIOSOrientation();
+      } else {
+        // Wait for user interaction before attempting lock
+        window.addEventListener('click', function initLock() {
+          lockLandscape();
+          window.removeEventListener('click', initLock);
+        });
+      };
       if (window.screen.orientation && window.screen.orientation.lock) {
         window.screen.orientation.lock('landscape').catch((error) => {
           console.error('Orientation lock failed:', error);
