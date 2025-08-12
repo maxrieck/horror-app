@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { DndContext, DragOverlay } from '@dnd-kit/core';
+import { DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { InventoryProvider, useInventory } from './context/InventoryContext';
 import Inventory from './components/Inventory';
 import Page1 from './pages/Page1';
@@ -23,6 +23,12 @@ function App() {
 }
 
 function Main() {
+  // init dndkit sensors to add controls for mobile touch
+  const mouseSensor = useSensor(MouseSensor);
+  const touchSensor = useSensor(TouchSensor)
+  const keyboardSensor = useSensor(KeyboardSensor)
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor)
+
   const { dispatch } = useInventory();
   const [activeId, setActiveId] = useState(null);
   const [activeFrom, setActiveFrom] = useState(null);
@@ -79,7 +85,7 @@ function Main() {
         ))}
       </nav>
 
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
         <Routes>
           <Route path="/page1" element={<Page1 />} />
           <Route path="/page2" element={<Page2 />} />
