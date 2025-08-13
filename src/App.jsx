@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { InventoryProvider, useInventory } from './context/InventoryContext';
 import Inventory from './components/Inventory';
@@ -10,6 +10,9 @@ import Page4 from './pages/Page4';
 import Page5 from './pages/Page5';
 import Page6 from './pages/Page6';
 import Page7 from './pages/Page7';
+import SplashPage from './pages/Splash'; 
+import Login from './users/Login';
+import Signup from './users/Signup'; 
 import DraggableItem from './components/DraggableItem';
 
 function App() {
@@ -23,9 +26,12 @@ function App() {
 }
 
 function Main() {
+  const navigate = useNavigate(); 
   const { dispatch } = useInventory();
   const [activeId, setActiveId] = useState(null);
   const [activeFrom, setActiveFrom] = useState(null);
+  const location = useLocation(); 
+  const hideGlobalUI = ["/", "/login", "/signup"].includes(location.pathname);
 
   function handleDragStart({ active }) {
     setActiveId(active.id);
@@ -62,25 +68,36 @@ function Main() {
 
   return (
     <>
-      {/* Simple navigation for testing purposes. Will remove with final version*/}
-      <nav
-        style={{
-          padding: '1rem',
-          borderBottom: '1px solid #ccc',
-          marginBottom: '1rem',
-          display: 'flex',
-          gap: '1rem',
-        }}
-      >
-        {[1, 2, 3, 4, 5, 6, 7].map((num) => (
-          <Link key={num} to={`/page${num}`}>
-            Page {num}
-          </Link>
-        ))}
-      </nav>
-
+      {/* Simple navigation for testing purposes. Will remove with final version. Rendering if splash page is left first.*/}
+      {!hideGlobalUI && (
+        <nav
+          style={{
+            padding: '1rem',
+            borderBottom: '1px solid #ccc',
+            marginBottom: '1rem',
+            display: 'flex',
+            gap: '1rem',
+          }}
+        >
+          {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+            <Link key={num} to={`/page${num}`}>
+              Page {num}
+            </Link>
+          ))}
+        </nav>
+      )}
+      
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <Routes>
+          <Route path="/" element={
+            <SplashPage 
+              onLogin={() => navigate("/login")}
+              onSignup={() => navigate("/signup")}
+              onGuest={() => navigate("/page1")} 
+            />}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />}/> 
           <Route path="/page1" element={<Page1 />} />
           <Route path="/page2" element={<Page2 />} />
           <Route path="/page3" element={<Page3 />} />
@@ -92,7 +109,7 @@ function Main() {
         </Routes>
 
         {/* Persistent Inventory at bottom */}
-        <Inventory />
+        {!hideGlobalUI && <Inventory />}
 
         {/* Drag Overlay to keep dragged item visible */}
         <DragOverlay style={{ zIndex: 9999 }}>
