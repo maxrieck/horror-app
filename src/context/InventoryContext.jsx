@@ -16,9 +16,9 @@ const initialState = {
     page2: { container5: [], container6: [] },
     page3: { container7: [], container8: [] },
     page4: { container9: [] },
-    page5: {},
-    page6: { container8: [], container9: [] },
-    page7: { container10: [] },
+    page5: { hallwayObject: []},
+    page6: { container10: [], container11: [] },
+    page7: { container12: [] },
   },
 };
 
