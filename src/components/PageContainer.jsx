@@ -3,27 +3,32 @@ import DraggableItem from './DraggableItem';
 import { useInventory } from '../context/InventoryContext';
 
 const PAGE_CONTAINERS = {
-  page1: ['container1', 'container2'],
-  page2: ['container3', 'container4'],
-  page3: ['container5', 'container6'],
-  page4: ['container7', 'container8'],
-  page5: ['container9', 'container10'],
+  page1: ['container1', 'container2', 'container3', 'container4'],
+  page2: ['container5', 'container6'],
+  page3: ['container7', 'container8'],
+  page4: ['container9'],
+  page5: ['hallwayObject'],
+  page6: ['container10', 'container11'],
+  page7: ['container12'],
 };
 
 export default function PageContainer({ page, container }) {
   const { state } = useInventory();
-  
+  // check if page and container exist in state
+  const pageContainers = state.containers[page] || {};
+
   if (container) {
+    const items = pageContainers[container] || [];
     return (
       <DropZone
         id={`${container}:${page}`}
-        items={state.containers[page][container]}
+        items={items}
         page={page}
         container={container}
       />
     );
   }
-  
+
   const containers = PAGE_CONTAINERS[page] || [];
   return (
     <div style={{ padding: '1rem', display: 'flex', gap: '2rem' }}>
@@ -31,7 +36,7 @@ export default function PageContainer({ page, container }) {
         <DropZone
           key={containerId}
           id={`${containerId}:${page}`}
-          items={state.containers[page][containerId]}
+          items={pageContainers[containerId] || []}
           page={page}
           container={containerId}
         />

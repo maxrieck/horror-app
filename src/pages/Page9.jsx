@@ -1,7 +1,7 @@
 
 const Page9 = () => (
   <>
-    <h2>Page 9</h2>
+    <h2>Elevator</h2>
    
   </>
 );

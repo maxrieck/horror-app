@@ -26,12 +26,15 @@ function App() {
 }
 
 function Main() {
+
   const navigate = useNavigate(); 
+
   // init dndkit sensors to add controls for mobile touch
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor)
   const keyboardSensor = useSensor(KeyboardSensor)
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor)
+
   const { dispatch } = useInventory();
   const [activeId, setActiveId] = useState(null);
   const [activeFrom, setActiveFrom] = useState(null);
@@ -73,6 +76,7 @@ function Main() {
 
   return (
     <>
+
       {/* Simple navigation for testing purposes. Will remove with final version. Rendering if splash page is left first.*/}
       {!hideGlobalUI && (
         <nav
@@ -92,6 +96,7 @@ function Main() {
         </nav>
       )}
       
+
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
         <Routes>
           <Route path="/" element={

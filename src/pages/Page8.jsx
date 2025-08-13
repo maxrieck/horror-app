@@ -1,7 +1,7 @@
 
 const Page8 = () => (
   <>
-    <h2>Page 8</h2>
+    <h2>Blocked exit</h2>
     
   </>
 );
