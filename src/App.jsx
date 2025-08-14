@@ -28,7 +28,6 @@ function App() {
 function Main() {
 
   const navigate = useNavigate(); 
-
   // init dndkit sensors to add controls for mobile touch
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor)
