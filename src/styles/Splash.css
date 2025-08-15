@@ -52,7 +52,7 @@
   background-color: #ff0000;
 }
 
-@media screen and (max-width: 480px) and (orientation: portrait) {
+@media screen and (max-width: 480px) {
   .button-group {
     grid-template-columns: 1fr;
     max-width: 240px;
