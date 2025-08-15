@@ -5,6 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="MorgueEscapeLogo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Morgue Escape</title>
+  </head>
+  <body>
     <script type="text/javascript" defer>
       // lock into landscape mode (chrome will specifically only turn if the device supports it)
       
@@ -48,13 +50,13 @@
       async function lockLandscape() {
         try {
           if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
+            await document.documentElement.requestFullscreen();
           } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-            document.documentElement.mozRequestFullScreen();
+            await document.documentElement.mozRequestFullScreen();
           } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-            document.documentElement.webkitRequestFullscreen();
+            await document.documentElement.webkitRequestFullscreen();
           } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
-            document.documentElement.msRequestFullscreen();
+            await document.documentElement.msRequestFullscreen();
           }
           if (screen.orientation && screen.orientation.lock) {
             await screen.orientation.lock('landscape');
@@ -86,9 +88,6 @@
         console.warn('Screen Orientation API not available or lock method unsupported.');
       }
     </script>
-  </head>
-  <body>
-    
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
