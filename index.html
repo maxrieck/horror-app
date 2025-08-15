@@ -52,6 +52,9 @@
           if (document.documentElement.requestFullscreen) {
             await document.documentElement.requestFullscreen();
           }
+          else if (document.documentElement.webkitRequestFullscreen) {
+            await document.documentElement.webkitRequestFullscreen
+          }
           if (screen.orientation && screen.orientation.lock) {
             await screen.orientation.lock('landscape');
           } else {
