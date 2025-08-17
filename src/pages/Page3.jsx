@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ContainerModal from '../components/ContainerModal';
 import { Link } from 'react-router-dom'
 
-const CONTAINERS = ['container7', 'container8'];
+const CONTAINERS = ['drain', 'fireExitMap'];
 
 
 const Page3 = () => {
@@ -10,8 +10,8 @@ const Page3 = () => {
   const [openModal, setOpenModal] = useState(null);
 
   const containerPositions = {
-    container7: { gridRow: 4, gridColumn: 5 },
-    container8: { gridRow: 7, gridColumn: 9 },
+    drain: { gridRow: 4, gridColumn: 5 },
+    fireExitMap: { gridRow: 6, gridColumn: 9 },
   };
 
 

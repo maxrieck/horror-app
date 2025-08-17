@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import ContainerModal from '../components/ContainerModal';
 import { Link } from 'react-router-dom'
 
-const CONTAINERS = ['container10', 'container11'];
+const CONTAINERS = ['safe'];
 
 const Page6 = () => {
 
   const [openModal, setOpenModal] = useState(null);
 
   const containerPositions = {
-    container10: { gridRow: 4, gridColumn: 6 },
-    container11: { gridRow: 3, gridColumn: 5 },
+    safe: { gridRow: 5, gridColumn: 2 },
   }
 
   return (
     <>
-      <h2>Office area with desk - page 6</h2>
+      <h2>Office area with safe - page 6</h2>
 
       <div className="page-layout" >
         {CONTAINERS.map((container) => (
@@ -32,6 +31,7 @@ const Page6 = () => {
         ))}
 
         <Link className='back-button' to='/page5'>Back</Link>
+        <Link className='right-button' to='/page7'>Right</Link>
 
       </div>
 

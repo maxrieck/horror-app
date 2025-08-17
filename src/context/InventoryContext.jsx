@@ -4,21 +4,29 @@ import { createContext, useContext, useReducer } from 'react';
 // Initial state with item objects and containers storing IDs
 const initialState = {
   items: {
-    test2: { id: 'test2', name: 'Test 2', description: 'Second test item' },
-    test3: { id: 'test3', name: 'Test 3', description: 'Third test item' },
-    test4: { id: 'test4', name: 'Test 4', description: 'Fourth test item' },
-    key7: { id: 'key7', name: 'Key 7', description: 'Special key for container 7' },
-    key9: { id: 'key9', name: 'Key 9', description: 'Special key for container 9' },
+    item1: { id: 'keycard', name: 'Keycard', description: '', status: false },
+    item2: { id: 'bucket', name: 'Bucket', description: '', status: false },
+    item3: { id: 'scalpal', name: 'Scalpal', description: '', status: true },
+    item4: { id: 'wallet', name: 'Wallet', description: '', status: true },
+    item5: { id: 'carKeys', name: 'Car Keys', description: '', status: true },
+    item6: { id: 'flashdrive', name: 'Flashdrive', description: '', status: true },
+    item7: { id: 'fireExtinguisher', name: 'Fire Extinguisher', description: '', status: true },
+    item8: { id: 'crowbar', name: 'Crowbar', description: '', status: true },
+    item9: { id: 'lighter', name: 'Lighter', description: '', status: true },
+    item10: { id: 'elevatorKey', name: 'Elevator Doors', description: '', status: true },
   },
-  inventory: ['test2'],
+  inventory: [],
   containers: {
-    page1: { container1: [], container2: [], container3: [], container4: [] },
-    page2: { container5: [], container6: [] },
-    page3: { container7: [], container8: [] },
-    page4: { container9: [] },
-    page5: { hallwayObject: []},
-    page6: { container10: [], container11: [] },
-    page7: { container12: [] },
+    page1: { freezer1: [], freezer2: ['bucket'], freezer3: [], freezer4: ['keycard', 'flashdrive'] },
+    page2: { bodyBag: [], propertyBag: ['wallet', 'carKeys'], medicalChart: [] },
+    page3: { drain: [], fireExitMap: [] },
+    page4: { cardReader: [], cabinet: [] },
+    page5: { fireExtinguisherCase: ['fireExtinguisher'] },
+    page6: { safe: [] },
+    page7: { computer: [], desk: ['lighter'] },
+    page8: { blockedExit: ['crowbar'] },
+    page9: { elevatorDoors: [], elevatorButton: [] },
+    page10: { elevatorPanel: [] },
   },
 };
 
@@ -55,20 +63,45 @@ function inventoryReducer(state, action) {
         );
       }
 
-      // logic for test2 and test3
-      if (itemId === 'test2' && to && typeof to === 'object' && to.container === 'container2') {
-        if (!newInventory.includes('test3')) newInventory.push('test3');
+
+      // logic for drain container
+      if (itemId === 'carKeys' && to && typeof to === 'object' && to.page === 'page3' && to.container === 'drain') {
+        const carKeysIndex = newInventory.indexOf('carKeys');
+        if (carKeysIndex > -1) newInventory.splice(carKeysIndex, 1);
+        newContainers.page3.drain = newContainers.page3.drain.filter(id => id !== 'carKeys');
+        const newItems = { ...state.items, item2: { ...state.items.item2, status: true } };
+        return { ...state, inventory: newInventory, containers: newContainers, items: newItems };
+      }
+
+      if (itemId === 'bucket' && to && typeof to === 'object' && to.page === 'page3' && to.container === 'drain') {
+        const bucketStatus = state.items.item2.status;
+        if (bucketStatus) {
+          if (!newInventory.includes('scalpal')) newInventory.push('scalpal');
+          newContainers.page3.drain = newContainers.page3.drain.filter(id => id !== 'bucket');
+          return { ...state, inventory: newInventory, containers: newContainers };
+        }
+        if (!newContainers.page3.drain.includes('bucket')) newContainers.page3.drain.push('bucket');
         return { ...state, inventory: newInventory, containers: newContainers };
       }
-      if (itemId === 'test3' && to && typeof to === 'object' && to.container === 'container3') {
-        if (!newInventory.includes('test4')) newInventory.push('test4');
-        return { ...state, inventory: newInventory, containers: newContainers };
+
+      // logic for card reader container
+      if (itemId === 'scalpal' && to && typeof to === 'object' && to.page === 'page4' && to.container === 'cardReader') {
+        const newItems = { ...state.items, item3: { ...state.items.item3, status: true } };
+        return { ...state, inventory: newInventory, containers: newContainers, items: newItems };
       }
-      // logic for key7
-      if (itemId === 'key7' && to && typeof to === 'object' && to.container === 'container7') {
-        if (!newInventory.includes('key9')) newInventory.push('key9');
-        return { ...state, inventory: newInventory, containers: newContainers };
+
+      if (itemId === 'keycard' && to && typeof to === 'object' && to.page === 'page4' && to.container === 'cardReader') {
+        const scalpalStatus = state.items.item3.status;
+        if (scalpalStatus) {
+
+          const keycardIndex = newInventory.indexOf('keycard');
+          if (keycardIndex > -1) newInventory.splice(keycardIndex, 1);
+
+          newContainers.page4.cardReader = newContainers.page4.cardReader.filter(id => id !== 'keycard');
+          return { ...state, inventory: newInventory, containers: newContainers };
+        }
       }
+
 
       // Add to destination
       if (to === 'inventory') {

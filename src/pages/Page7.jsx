@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ContainerModal from '../components/ContainerModal';
 import { Link } from 'react-router-dom'
 
-const CONTAINERS = ['container12'];
+const CONTAINERS = ['computer', 'desk'];
 
 const Page7 = () => {
 
@@ -10,12 +10,13 @@ const Page7 = () => {
 
   // use this to re-position buttons on page
   const containerPositions = {
-    container12: { gridRow: 4, gridColumn: 5 },
+    computer: { gridRow: 4, gridColumn: 5 },
+    desk: { gridRow: 6, gridColumn: 5 },
   };
 
   return (
     <>
-      <h2>Office area with safe - page 7</h2>
+      <h2>Office area with desk - page 7</h2>
 
       <div className="page-layout" >
         {CONTAINERS.map((container) => (
@@ -31,7 +32,7 @@ const Page7 = () => {
           </button>
         ))}
 
-        <Link className='back-button' to='/page5'>Back</Link>
+        <Link className='back-button' to='/page6'>Back</Link>
 
       </div>
 
