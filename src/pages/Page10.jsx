@@ -1,22 +1,23 @@
+
+
 import React, { useState } from 'react';
 import ContainerModal from '../components/ContainerModal';
 import { Link } from 'react-router-dom'
 
-const CONTAINERS = ['cardReader', 'cabinet'];
+const CONTAINERS = ['elevatorPanel'];
 
-const Page4 = () => {
+const Page10 = () => {
+
   const [openModal, setOpenModal] = useState(null);
 
   // use this to re-position buttons on page
   const containerPositions = {
-    cardReader: { gridRow: 4, gridColumn: 5 },
-     cabinet: { gridRow: 2, gridColumn: 5 },
-
+    elevatorPanel: { gridRow: 4, gridColumn: 5 },
   };
 
   return (
     <>
-      <h2>Wall with exit - page 4</h2>
+      <h2>Elevator interior - page 10</h2>
 
       <div className="page-layout" >
         {CONTAINERS.map((container) => (
@@ -32,16 +33,14 @@ const Page4 = () => {
           </button>
         ))}
 
-        <Link className='left-button' to='/page3'>Left</Link>
-        <Link className='right-button' to='/page2'>Right</Link>
-        <Link className='forward-button' to='/page5'>Forward</Link>
+        <Link className='back-button' to='/page9'>Back</Link>
 
       </div>
 
       {CONTAINERS.map((container) => (
         <ContainerModal
           key={container}
-          page="page4"
+          page="page10"
           container={container}
           open={openModal === container}
           onClose={() => setOpenModal(null)}
@@ -50,5 +49,4 @@ const Page4 = () => {
     </>
   );
 };
-export default Page4;
-
+export default Page10;

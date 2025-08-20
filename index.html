@@ -7,7 +7,7 @@
     <title>Morgue Escape</title>
   </head>
   <body>
-    <script type="text/javascript">
+    <script type="text/javascript" defer>
       // lock into landscape mode (chrome will specifically only turn if the device supports it)
       
       // --- Create iOS overlay element ---
@@ -51,6 +51,12 @@
         try {
           if (document.documentElement.requestFullscreen) {
             await document.documentElement.requestFullscreen();
+          } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+            await document.documentElement.mozRequestFullScreen();
+          } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            await document.documentElement.webkitRequestFullscreen();
+          } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+            await document.documentElement.msRequestFullscreen();
           }
           if (screen.orientation && screen.orientation.lock) {
             await screen.orientation.lock('landscape');

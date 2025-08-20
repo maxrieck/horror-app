@@ -1,20 +1,40 @@
 import React, { useState } from 'react';
 import ContainerModal from '../components/ContainerModal';
+import { Link } from 'react-router-dom'
 
-const CONTAINERS = ['container8', 'container9'];
+const CONTAINERS = ['safe'];
 
 const Page6 = () => {
+
   const [openModal, setOpenModal] = useState(null);
+
+  const containerPositions = {
+    safe: { gridRow: 5, gridColumn: 2 },
+  }
+
   return (
     <>
-      <h2>Page 6</h2>
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+      <h2>Office area with safe - page 6</h2>
+
+      <div className="page-layout" >
         {CONTAINERS.map((container) => (
-          <button key={container} onClick={() => setOpenModal(container)}>
+          <button
+            key={container}
+            onClick={() => setOpenModal(container)}
+            style={{
+              gridRow: containerPositions[container].gridRow,
+              gridColumn: containerPositions[container].gridColumn,
+            }}
+          >
             Open {container}
           </button>
         ))}
+
+        <Link className='back-button' to='/page5'>Back</Link>
+        <Link className='right-button' to='/page7'>Right</Link>
+
       </div>
+
       {CONTAINERS.map((container) => (
         <ContainerModal
           key={container}
@@ -28,4 +48,5 @@ const Page6 = () => {
   );
 };
 export default Page6;
+
 

@@ -14,6 +14,9 @@ import SplashPage from './pages/Splash';
 import Login from './users/Login';
 import Signup from './users/Signup'; 
 import DraggableItem from './components/DraggableItem';
+import Page8 from './pages/Page8';
+import Page9 from './pages/Page9';
+import Page10 from './pages/Page10';
 
 function App() {
   return (
@@ -26,12 +29,14 @@ function App() {
 }
 
 function Main() {
+
   const navigate = useNavigate(); 
   // init dndkit sensors to add controls for mobile touch
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor)
   const keyboardSensor = useSensor(KeyboardSensor)
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor)
+
   const { dispatch } = useInventory();
   const [activeId, setActiveId] = useState(null);
   const [activeFrom, setActiveFrom] = useState(null);
@@ -73,6 +78,7 @@ function Main() {
 
   return (
     <>
+
       {/* Simple navigation for testing purposes. Will remove with final version. Rendering if splash page is left first.*/}
       {!hideGlobalUI && (
         <nav
@@ -84,7 +90,7 @@ function Main() {
             gap: '1rem',
           }}
         >
-          {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
             <Link key={num} to={`/page${num}`}>
               Page {num}
             </Link>
@@ -92,6 +98,7 @@ function Main() {
         </nav>
       )}
       
+
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
         <Routes>
           <Route path="/" element={
@@ -110,6 +117,9 @@ function Main() {
           <Route path="/page5" element={<Page5 />} />
           <Route path="/page6" element={<Page6 />} />
           <Route path="/page7" element={<Page7 />} />
+          <Route path="/page8" element={<Page8 />} />
+          <Route path="/page9" element={<Page9 />} />
+          <Route path="/page10" element={<Page10 />} />
           <Route path="*" element={<div>Select a page above **INSERT SPLASH PAGE / LOGIN</div>} />
         </Routes>
 
@@ -126,4 +136,5 @@ function Main() {
 }
 
 export default App;
+
 
