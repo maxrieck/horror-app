@@ -95,6 +95,7 @@ function Main() {
               Page {num}
             </Link>
           ))}
+          <Link to={'/iceRoom'}>IceRoomV1</Link>
         </nav>
       )}
       
@@ -120,6 +121,7 @@ function Main() {
           <Route path="/page8" element={<Page8 />} />
           <Route path="/page9" element={<Page9 />} />
           <Route path="/page10" element={<Page10 />} />
+          <Route path="/iceRoom" element={<IceRoomV1 />} />
           <Route path="*" element={<div>Select a page above **INSERT SPLASH PAGE / LOGIN</div>} />
         </Routes>
 
