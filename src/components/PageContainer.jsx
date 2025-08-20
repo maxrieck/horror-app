@@ -3,14 +3,17 @@ import DraggableItem from './DraggableItem';
 import { useInventory } from '../context/InventoryContext';
 
 const PAGE_CONTAINERS = {
-  page1: ['container1', 'container2', 'container3', 'container4'],
-  page2: ['container5', 'container6'],
-  page3: ['container7', 'container8'],
-  page4: ['container9'],
-  page5: ['hallwayObject'],
-  page6: ['container10', 'container11'],
-  page7: ['container12'],
-};
+    page1: { freezer1: [], freezer2: [], freezer3: [], freezer4: [] },
+    page2: { bodyBag: [], propertyBag: [], medicalChart: [] },
+    page3: { drain: [], fireExitMap: [] },
+    page4: { cardReader: [], cabinet: [] },
+    page5: { fireExtinguisherCase: [] },
+    page6: { safe: [] },
+    page7: { computer: [], desk: [] },
+    page8: { blockedExit: [] },
+    page9: { elevatorDoors: [], elevatorButton: [] },
+    page10: { elevatorPanel: [] },
+  }
 
 export default function PageContainer({ page, container }) {
   const { state } = useInventory();

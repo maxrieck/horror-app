@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import ContainerModal from '../components/ContainerModal';
 import { Link } from 'react-router-dom'
 
-const CONTAINERS = ['hallwayObject']
+const CONTAINERS = ['fireExtinguisherCase']
 
 const Page5 = () => {
 
   const [openModal, setOpenModal] = useState(null);
 
   const containerPositions = {
-    hallwayObject: { gridRow: 4, gridColumn: 5 }, //placeholder object to make sure page works 
+    fireExtinguisherCase: { gridRow: 4, gridColumn: 5 },  
   };
 
   return (
@@ -30,9 +30,9 @@ const Page5 = () => {
           </button>
         ))}
 
-      <Link className='left-button' to='/page6'>Left</Link>
-      <Link className='right-button' to='/page7'>Right</Link>
-      {/* <Link className='forward-button' to='/page5'>Forward</Link> */}
+      <Link className='left-button' to='/page9'>Left</Link>
+      <Link className='right-button' to='/page6'>Right</Link>
+      <Link className='forward-button' to='/page8'>Forward</Link>
       <Link className='back-button' to='/page4'>Back</Link>
 
       </div>

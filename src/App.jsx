@@ -14,6 +14,9 @@ import SplashPage from './pages/Splash';
 import Login from './users/Login';
 import Signup from './users/Signup'; 
 import DraggableItem from './components/DraggableItem';
+import Page8 from './pages/Page8';
+import Page9 from './pages/Page9';
+import Page10 from './pages/page10';
 import IceRoomV1 from './assets/IceRoomV1.jsx';
 
 function App() {
@@ -88,7 +91,7 @@ function Main() {
             gap: '1rem',
           }}
         >
-          {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
             <Link key={num} to={`/page${num}`}>
               Page {num}
             </Link>
@@ -116,6 +119,9 @@ function Main() {
           <Route path="/page5" element={<Page5 />} />
           <Route path="/page6" element={<Page6 />} />
           <Route path="/page7" element={<Page7 />} />
+          <Route path="/page8" element={<Page8 />} />
+          <Route path="/page9" element={<Page9 />} />
+          <Route path="/page10" element={<Page10 />} />
           <Route path="/iceRoom" element={<IceRoomV1 />} />
           <Route path="*" element={<div>Select a page above **INSERT SPLASH PAGE / LOGIN</div>} />
         </Routes>

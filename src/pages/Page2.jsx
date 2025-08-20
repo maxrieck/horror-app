@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ContainerModal from '../components/ContainerModal';
 import { Link } from 'react-router-dom'
 
-const CONTAINERS = ['container5', 'container6'];
+const CONTAINERS = ['bodyBag', 'propertyBag', 'medicalChart'];
 
 
 const Page2 = () => {
@@ -11,8 +11,9 @@ const Page2 = () => {
 
   // use this to re-position buttons on page
   const containerPositions = {
-    container5: { gridRow: 3, gridColumn: 5 },
-    container6: { gridRow: 3, gridColumn: 3 },
+    bodyBag: { gridRow: 3, gridColumn: 5 },
+    propertyBag: { gridRow: 3, gridColumn: 3 },
+    medicalChart: { gridRow: 5, gridColumn: 8 }
   };
 
 
