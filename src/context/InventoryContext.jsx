@@ -6,7 +6,7 @@ const initialState = {
   items: {
     item1: { id: 'keycard', name: 'Keycard', description: '', status: false },
     item2: { id: 'bucket', name: 'Bucket', description: '', status: false },
-    item3: { id: 'scalpal', name: 'Scalpal', description: '', status: true },
+    item3: { id: 'scalpal', name: 'Scalpal', description: '', status: false },
     item4: { id: 'wallet', name: 'Wallet', description: '', status: true },
     item5: { id: 'carKeys', name: 'Car Keys', description: '', status: true },
     item6: { id: 'flashdrive', name: 'Flashdrive', description: '', status: true },
@@ -22,7 +22,7 @@ const initialState = {
     page3: { drain: [], fireExitMap: [] },
     page4: { cardReader: [], cabinet: [] },
     page5: { fireExtinguisherCase: ['fireExtinguisher'] },
-    page6: { safe: [] },
+    page6: { safe: ['elevatorKey'] },
     page7: { computer: [], desk: ['lighter'] },
     page8: { blockedExit: ['crowbar'] },
     page9: { elevatorDoors: [], elevatorButton: [] },
@@ -84,7 +84,7 @@ function inventoryReducer(state, action) {
         return { ...state, inventory: newInventory, containers: newContainers };
       }
 
-      // logic for card reader container
+     // logic for card reader container
       if (itemId === 'scalpal' && to && typeof to === 'object' && to.page === 'page4' && to.container === 'cardReader') {
         const newItems = { ...state.items, item3: { ...state.items.item3, status: true } };
         return { ...state, inventory: newInventory, containers: newContainers, items: newItems };
@@ -100,6 +100,42 @@ function inventoryReducer(state, action) {
           newContainers.page4.cardReader = newContainers.page4.cardReader.filter(id => id !== 'keycard');
           return { ...state, inventory: newInventory, containers: newContainers };
         }
+      }
+
+      // logic for freezer1 container
+      if (itemId === 'lighter' && to && typeof to === 'object' && to.page === 'page1' && to.container === 'freezer1') {
+        const lighterIndex = newInventory.indexOf('lighter');
+        if(lighterIndex > -1) newInventory.splice(lighterIndex, 1);
+        newContainers.page1.freezer1 = newContainers.page1.freezer1.filter(id => id === 'lighter')
+        const newItems = { ...state.items, item9: { ...state.items.item9, status: true } };
+        return { ...state, inventory: newInventory, containers: newContainers, items: newItems };
+      }
+
+      // logic for elevator doors container
+      if (itemId === 'crowbar' && to && typeof to === 'object' && to.page === 'page9' && to.container === 'elevatorDoors') {
+        const crowbarIndex = newInventory.indexOf('crowbar');
+        if(crowbarIndex > -1) newInventory.splice(crowbarIndex, 1);
+        newContainers.page9.elevatorDoors = newContainers.page9.elevatorDoors.filter(id => id === 'crowbar')
+        const newItems = { ...state.items, item8: { ...state.items.item8, status: true } };
+        return { ...state, inventory: newInventory, containers: newContainers, items: newItems };
+      }
+
+      // logic for elevator panel container
+      if (itemId === 'elevatorKey' && to && typeof to === 'object' && to.page === 'page10' && to.container === 'elevatorPanel') {
+        const elevatorKeyIndex = newInventory.indexOf('elevatorKey');
+        if(elevatorKeyIndex > -1) newInventory.splice(elevatorKeyIndex, 1);
+        newContainers.page10.elevatorPanel = newContainers.page10.elevatorPanel.filter(id => id === 'elevatorKey')
+        const newItems = { ...state.items, item10: { ...state.items.item10, status: true } };
+        return { ...state, inventory: newInventory, containers: newContainers, items: newItems };
+      }
+
+      // logic for computer container
+      if (itemId === 'flashdrive' && to && typeof to === 'object' && to.page === 'page7' && to.container === 'computer') {
+        const flashdriveIndex = newInventory.indexOf('flashdrive');
+        if(flashdriveIndex > -1) newInventory.splice(flashdriveIndex, 1);
+        newContainers.page7.computer = newContainers.page7.computer.filter(id => id === 'flashdrive')
+        const newItems = { ...state.items, item6: { ...state.items.item6, status: true } };
+        return { ...state, inventory: newInventory, containers: newContainers, items: newItems };
       }
 
 
