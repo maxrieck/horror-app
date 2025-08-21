@@ -50,5 +50,3 @@ const Page5 = () => {
   );
 };
 export default Page5;
-
-

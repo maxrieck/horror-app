@@ -1,0 +1,54 @@
+.inventory-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end; /* align near bottom */
+  justify-content: center;
+  padding-bottom: 150px; /* space above inventory bar */
+  pointer-events: none; /* allow clicks to pass through if needed */
+  z-index: 9999;
+}
+
+.inventory-modal {
+  background: rgba(255, 255, 255, 0.95);
+  color: #222;
+  padding: 16px 24px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  max-width: 300px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  background: white;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.inventory-modal button {
+  margin-top: 15px;
+  background: #ff4444;
+  border: none;
+  padding: 8px 16px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

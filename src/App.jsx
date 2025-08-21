@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { InventoryProvider, useInventory } from './context/InventoryContext';
+import { InventoryProvider } from './context/InventoryProvider';
+import { useInventory } from './context/InventoryContext';
 import Inventory from './components/Inventory';
+import InventoryModal from './components/inventoryModal.jsx';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Page3 from './pages/Page3';
@@ -41,7 +43,7 @@ function Main() {
   const keyboardSensor = useSensor(KeyboardSensor)
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor)
 
-  const { dispatch } = useInventory();
+  const { dispatch, triggerModal, modalMessage, showModal, setShowModal } = useInventory();
   const [activeId, setActiveId] = useState(null);
   const [activeFrom, setActiveFrom] = useState(null);
   const location = useLocation(); 
@@ -78,7 +80,25 @@ function Main() {
       type: 'MOVE_ITEM',
       payload: { from, to, itemId: active.id },
     });
+
+    let actionType;
+    if (from !== 'inventory' && to === 'inventory') {
+      actionType = 'add';
+    } else if (from === 'inventory' && to !== 'inventory') {
+      actionType = 'drop';
+    } else {
+      actionType = 'use'; // fallback or special case
+    }
+
+    console.log(`Triggering ${actionType} modal for:`, active.id);
+    triggerModal(active.id, actionType);
   }
+
+  useEffect(() => {
+    if (showModal) {
+      console.log('Modal is now visible with message:', modalMessage);
+    }
+    }, [showModal]); 
 
   return (
     <>
@@ -129,6 +149,14 @@ function Main() {
           <Route path="*" element={<div>Select a page above **INSERT SPLASH PAGE / LOGIN</div>} />
         </Routes>
 
+        {/* Render for Modal, overlay over everything else */}
+        {showModal && (
+          <InventoryModal
+            message={modalMessage}
+            onClose={() => setShowModal(false)} 
+          />
+        )}
+
         {/* Persistent Inventory at bottom */}
         {!hideGlobalUI && <Inventory />}
 
@@ -136,10 +164,12 @@ function Main() {
         <DragOverlay style={{ zIndex: 9999 }}>
           {activeId ? <DraggableItem id={activeId} from={activeFrom} /> : null}
         </DragOverlay>
+
       </DndContext>
     </>
   );
 }
 
 export default App;
+
 
