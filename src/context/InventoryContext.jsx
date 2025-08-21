@@ -1,12 +1,11 @@
-import { createContext, useContext, useReducer } from 'react';
-
+import { createContext, useContext, useReducer, useState, useEffect } from 'react';
 
 // Initial state with item objects and containers storing IDs
-const initialState = {
+export const initialState = {
   items: {
     item1: { id: 'keycard', name: 'Keycard', description: '', status: false },
     item2: { id: 'bucket', name: 'Bucket', description: '', status: false },
-    item3: { id: 'scalpal', name: 'Scalpal', description: '', status: false },
+    item3: { id: 'scalpel', name: 'Scalpel', description: '', status: false },
     item4: { id: 'wallet', name: 'Wallet', description: '', status: true },
     item5: { id: 'carKeys', name: 'Car Keys', description: '', status: true },
     item6: { id: 'flashdrive', name: 'Flashdrive', description: '', status: true },
@@ -76,7 +75,7 @@ function inventoryReducer(state, action) {
       if (itemId === 'bucket' && to && typeof to === 'object' && to.page === 'page3' && to.container === 'drain') {
         const bucketStatus = state.items.item2.status;
         if (bucketStatus) {
-          if (!newInventory.includes('scalpal')) newInventory.push('scalpal');
+          if (!newInventory.includes('scalpel')) newInventory.push('scalpel');
           newContainers.page3.drain = newContainers.page3.drain.filter(id => id !== 'bucket');
           return { ...state, inventory: newInventory, containers: newContainers };
         }
@@ -85,7 +84,7 @@ function inventoryReducer(state, action) {
       }
 
      // logic for card reader container
-      if (itemId === 'scalpal' && to && typeof to === 'object' && to.page === 'page4' && to.container === 'cardReader') {
+      if (itemId === 'scalpel' && to && typeof to === 'object' && to.page === 'page4' && to.container === 'cardReader') {
         const newItems = { ...state.items, item3: { ...state.items.item3, status: true } };
         return { ...state, inventory: newInventory, containers: newContainers, items: newItems };
       }
@@ -155,18 +154,11 @@ function inventoryReducer(state, action) {
   }
 }
 
-export function InventoryProvider({ children }) {
-  const [state, dispatch] = useReducer(inventoryReducer, initialState);
-  return (
-    <InventoryContext.Provider value={{ state, dispatch }}>
-      {children}
-    </InventoryContext.Provider>
-  );
-}
-
 // eslint-disable-next-line react-refresh/only-export-components
 export function useInventory() {
   const context = useContext(InventoryContext);
   if (!context) throw new Error('useInventory must be used within InventoryProvider');
   return context;
 }
+
+export { InventoryContext }; 

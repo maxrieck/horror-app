@@ -6,7 +6,7 @@ import { useDroppable } from '@dnd-kit/core';
 import PageContainer from './PageContainer';
 
 export default function ContainerModal({ page, container, open, onClose }) {
-  const {  dispatch } = useInventory();
+  const {  dispatch, triggerModal } = useInventory();
   const { setNodeRef } = useDroppable({ id: `${container}:${page}` });
   
 
@@ -14,6 +14,7 @@ export default function ContainerModal({ page, container, open, onClose }) {
   const showKey7Button = page === 'page2' && container === 'container5';
   const handleAddKey7 = () => {
     dispatch({ type: 'ADD_ITEM', payload: { itemId: 'key7' } });
+    triggerModal(itemId, 'add'); 
   };
 
   if (!open) return null;

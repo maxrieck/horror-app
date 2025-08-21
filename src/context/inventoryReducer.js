@@ -1,14 +1,4 @@
 
-export const initialState = {
-  inventory: ['item1', 'item2', 'item3'],
-  containers: {
-    page1: { containerA: [], containerB: [] },
-    page2: { containerA: [], containerB: [] },
-    page3: { containerA: [], containerB: [] },
-    page4: { containerA: [], containerB: [] },
-    page5: { containerA: [], containerB: [] },
-  },
-};
 
 export function inventoryReducer(state, action) {
   if (action.type !== 'MOVE_ITEM') return state;
@@ -38,7 +28,7 @@ export function inventoryReducer(state, action) {
     }
   }
 
-  return { inventory: newInventory, containers: newContainers };
+  return { inventory: newInventory, containers: newContainers, items: state.items, };
 }
 
 
