@@ -24,9 +24,14 @@ export default function Inventory() {
     >
       <strong>Inventory:</strong>
       {state.inventory.length === 0 && <span>(empty)</span>}
-      {state.inventory.map((itemId) => (
-        <DraggableItem key={itemId} id={itemId} from="inventory" />
-      ))}
+      {state.inventory.map((itemId) => {
+        // Find the item object by id
+        const itemObj = Object.values(state.items).find(item => item.id === itemId);
+        const image = itemObj?.image;
+        return (
+          <DraggableItem key={itemId} id={itemId} from="inventory" image={image} />
+        );
+      })}
     </div>
   );
 }

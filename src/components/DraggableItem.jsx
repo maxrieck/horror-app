@@ -1,16 +1,14 @@
 import { useDraggable } from '@dnd-kit/core';
 
-export default function DraggableItem({ id, from }) {
+export default function DraggableItem({ id, image, from }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id,
+    image,
     data: { from },
   });
 
-  const style = {
-    padding: '0.5rem 1rem',
-    margin: '0.25rem 0',
-    border: '1px solid #999',
-    backgroundColor: isDragging ? '#bde4ff' : 'white',
+  const style = {     
+    backgroundColor: isDragging ? '#dedede7e' : '#dddddd00',
     cursor: 'grab',
     userSelect: 'none',
     transform: transform
@@ -21,7 +19,12 @@ export default function DraggableItem({ id, from }) {
 
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-      {id}
+      <img style={{
+        maxWidth: '125px',
+        backgroundColor: '#dddddd00',
+        border: 'none',
+        borderRadius:'60px'
+      }} src={image} alt={id} />
     </div>
   );
 }

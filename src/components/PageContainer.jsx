@@ -51,6 +51,7 @@ export default function PageContainer({ page, container }) {
 function DropZone({ id, items, page, container }) {
   const { setNodeRef, isOver } = useDroppable({ id });
 
+  const { state } = useInventory();
   return (
     <div
       ref={setNodeRef}
@@ -66,9 +67,13 @@ function DropZone({ id, items, page, container }) {
     >
       <strong>{`${container} (${page})`}</strong>
       {items.length === 0 && <p>(empty)</p>}
-      {items.map((itemId) => (
-        <DraggableItem key={itemId} id={itemId} from={{ page, container }} />
-      ))}
+      {items.map((itemId) => {
+        const itemObj = Object.values(state.items).find(item => item.id === itemId);
+        const image = itemObj?.image;
+        return (
+          <DraggableItem key={itemId} id={itemId} from={{ page, container }} image={image} />
+        );
+      })}
     </div>
   );
 }

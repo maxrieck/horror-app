@@ -162,7 +162,13 @@ function Main() {
 
         {/* Drag Overlay to keep dragged item visible */}
         <DragOverlay style={{ zIndex: 9999 }}>
-          {activeId ? <DraggableItem id={activeId} from={activeFrom} /> : null}
+          {activeId ? (() => {
+            // Find the item object by id
+            const { state } = useInventory();
+            const itemObj = Object.values(state.items).find(item => item.id === activeId);
+            const image = itemObj?.image;
+            return <DraggableItem id={activeId} from={activeFrom} image={image} />;
+          })() : null}
         </DragOverlay>
 
       </DndContext>

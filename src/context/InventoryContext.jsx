@@ -1,19 +1,29 @@
 import { createContext, useContext } from 'react';
+import bucket from '../assets/items/bucket.png'
+import flashdrive from '../assets/items/flashdrive.png'
+import carkeys from '../assets/items/carkeys.png'
+import crowbar from '../assets/items/crowbar.png'
+import scalpel from '../assets/items/scalpel.png'
+import lighter from '../assets/items/lighter.png'
+import wallet from '../assets/items/wallet.png'
+import extinguisher from '../assets/items/extinguisher.png'
+import elevatorkey from '../assets/items/elevatorkey.png'
+
 const InventoryContext = createContext();
 
 // Initial state with item objects and containers storing IDs
 export const initialState = {
   items: {
-    item1: { id: 'keycard', name: 'Keycard', description: '', status: false },
-    item2: { id: 'bucket', name: 'Bucket', description: '', status: false },
-    item3: { id: 'scalpel', name: 'Scalpel', description: '', status: false },
-    item4: { id: 'wallet', name: 'Wallet', description: '', status: true },
-    item5: { id: 'carKeys', name: 'Car Keys', description: '', status: true },
-    item6: { id: 'flashdrive', name: 'Flashdrive', description: '', status: true },
-    item7: { id: 'fireExtinguisher', name: 'Fire Extinguisher', description: '', status: true },
-    item8: { id: 'crowbar', name: 'Crowbar', description: '', status: true },
-    item9: { id: 'lighter', name: 'Lighter', description: '', status: true },
-    item10: { id: 'elevatorKey', name: 'Elevator Doors', description: '', status: true },
+    item1: { id: 'keycard', name: 'Keycard', image: 'keycard.png', description: '', status: false },
+    item2: { id: 'bucket', name: 'Bucket', image: bucket, description: '', status: false },
+    item3: { id: 'scalpel', name: 'Scalpel', image: scalpel, description: '', status: false },
+    item4: { id: 'wallet', name: 'Wallet', image: wallet, description: '', status: true },
+    item5: { id: 'carKeys', name: 'Car Keys', image: carkeys, description: '', status: true },
+    item6: { id: 'flashdrive', name: 'Flashdrive', image: flashdrive, description: '', status: true },
+    item7: { id: 'fireExtinguisher', name: 'Fire Extinguisher', image: extinguisher, description: '', status: true },
+    item8: { id: 'crowbar', name: 'Crowbar', image: crowbar, description: '', status: true },
+    item9: { id: 'lighter', name: 'Lighter', image: lighter, description: '', status: true },
+    item10: { id: 'elevatorKey', name: 'Elevator Doors', image: elevatorkey, description: '', status: true },
   },
   inventory: [],
   containers: {
