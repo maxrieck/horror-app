@@ -29,7 +29,7 @@
   background: white;
   transform: translate(-50%, -50%);
   pointer-events: auto;
-  animation: fadeInUp 0.3s ease-out;
+  animation: fadeInUp .5s ease-out;
 }
 
 .inventory-modal button {

@@ -1,0 +1,15 @@
+svg path .pathVisited:hover {
+  animation: zoomBackground 1s infinite;
+}
+@keyframes zoomBackground {
+  0% {
+    transform: scale(1); /* Initial zoom level */
+  }
+  100% {
+    transform: scale(1.5); /* Desired zoom level */
+  }
+}
+
+svg path visited {
+  animation: zoomBackground 5s infinite alternate; /* Adjust duration and iteration */
+  transform-origin: center center;

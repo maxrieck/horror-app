@@ -19,10 +19,6 @@ import DraggableItem from './components/DraggableItem';
 import Page8 from './pages/Page8';
 import Page9 from './pages/Page9';
 import Page10 from './pages/page10';
-import {iceRoomV1PathData} from './assets/iceRoomV1Paths.js';
-import iceRoomV1_bg from './assets/iceRoomV1_bg.jpeg';
-import {iceRoomV1_colorMap} from './assets/iceRoomV1_colorMap.js';
-import GameView from './components/GameView';
 
 function App() {
   return (
@@ -112,10 +108,11 @@ function Main() {
             marginBottom: '1rem',
             display: 'flex',
             gap: '1rem',
+            zIndex: 11,
           }}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-            <Link key={num} to={`/page${num}`}>
+            <Link key={num} to={`/page${num}`} style={{ zIndex: '12' }}>
               Page {num}
             </Link>
           ))}
@@ -145,7 +142,6 @@ function Main() {
           <Route path="/page8" element={<Page8 />} />
           <Route path="/page9" element={<Page9 />} />
           <Route path="/page10" element={<Page10 />} />
-          <Route path="/iceRoom" element={<GameView viewBackground={iceRoomV1_bg} viewPathData={iceRoomV1PathData} viewColorMap={iceRoomV1_colorMap} />} />
           <Route path="*" element={<div>Select a page above **INSERT SPLASH PAGE / LOGIN</div>} />
         </Routes>
 
