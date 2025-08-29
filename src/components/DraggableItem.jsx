@@ -20,7 +20,7 @@ export default function DraggableItem({ id, image, from }) {
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
       <img style={{
-        maxWidth: '125px',
+        maxWidth: '12vw',
         backgroundColor: '#dddddd00',
         border: 'none',
         borderRadius:'60px'
